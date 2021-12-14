@@ -54,7 +54,7 @@ def make_post(desired_id=None):
         db_connection.commit()
 
         return json.dumps({
-            "shortened_url": "https://"
+            "shortened_url": f"https://{request.host}/url/{url_id}"
         }), 200
 
 
