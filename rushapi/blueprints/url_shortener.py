@@ -68,14 +68,14 @@ def redirect_url(url_id):
     :return: A redirect to that URL
     """
 
-    post_db_lookup = tuple(db_cursor.execute("SELECT url, visits, delete_after FROM urls WHERE id = ?", [url_id]))
-    if not post_db_lookup:
+    post_url_lookup = tuple(db_cursor.execute("SELECT url, visits, delete_after FROM urls WHERE id = ?", [url_id]))
+    if not post_url_lookup:
         return make_response(redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ"))
 
-    visits = int(post_db_lookup[1])
+    visits = int(post_url_lookup[0][1])
 
     db_cursor.execute("UPDATE urls SET visits = ? AND last_visit = ? WHERE id = ?",
                       [(visits+1), int(time.time()), url_id])
     db_connection.commit()
 
-    return make_response(redirect(post_db_lookup[0]))
+    return make_response(redirect(post_url_lookup[0][0]))
