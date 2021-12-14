@@ -49,16 +49,16 @@ def validate_session(session_token):
 
 
 def is_successfully_logged_in():
-    if 'session_token' in request.headers:
-        user_id = validate_session(request.headers['session_token'])
+    if 'Authorization' in request.headers:
+        user_id = validate_session(request.headers['Authorization'])
         if user_id:
             return user_id
     return None
 
 
 def get_user_context():
-    if 'session_token' in request.headers:
-        user_id = validate_session(request.headers['session_token'])
+    if 'Authorization' in request.headers:
+        user_id = validate_session(request.headers['Authorization'])
         if user_id:
             user_context_list = tuple(db_cursor.execute(
                 "SELECT id, email, username, permissions, premium FROM users WHERE id = ?",
