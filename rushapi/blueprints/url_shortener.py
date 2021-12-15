@@ -40,7 +40,7 @@ def make_post(desired_id=None):
         delete_after = None
     else:
         premium = 0
-        url_id = get_random_string(8)
+        url_id = get_random_string(7)
         author_id = None
         delete_after = int(time.time()) + 2.592e+6
 
@@ -54,11 +54,11 @@ def make_post(desired_id=None):
         db_connection.commit()
 
         return json.dumps({
-            "shortened_url": f"https://{request.host}/url/{url_id}"
+            "shortened_url": f"https://{request.host}/u/{url_id}"
         }), 200
 
 
-@url_shortener.route('/url/<url_id>')
+@url_shortener.route('/u/<url_id>')
 def redirect_url(url_id):
     """
     This endpoint looks up the unique identifier of the URL and redirects the user there.
