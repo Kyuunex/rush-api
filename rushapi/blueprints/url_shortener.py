@@ -46,6 +46,11 @@ def create_redirect(desired_id=None):
     if request.method == 'POST':
         url = request.form['url']
 
+        if not len(url) < 250:
+            return json.dumps({
+                "error": "URL length must be below 250 characters.",
+            }), 403
+
         db_cursor.execute("INSERT INTO urls "
                           "(id, author_id, url, creation_timestamp, premium, visits, delete_after, last_visit) "
                           "VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
