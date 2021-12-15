@@ -14,5 +14,6 @@ setup(
     url='https://github.com/Kyuunex/rush-api',
     install_requires=[
         'flask',
+        'validators',
     ],
 )

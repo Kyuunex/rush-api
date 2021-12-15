@@ -4,6 +4,7 @@ This file provides endpoints for everything URL shortener related
 from flask import Blueprint, request, make_response, redirect, json
 
 import time
+import validators
 
 from rushapi.reusables.context import db_cursor
 from rushapi.reusables.context import db_connection
@@ -49,6 +50,11 @@ def create_redirect(desired_id=None):
         if not len(url) < 250:
             return json.dumps({
                 "error": "URL length must be below 250 characters.",
+            }), 403
+
+        if not validators.url(url):
+            return json.dumps({
+                "error": "URL is not valid",
             }), 403
 
         db_cursor.execute("INSERT INTO urls "
