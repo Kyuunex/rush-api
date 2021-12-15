@@ -30,10 +30,9 @@ def create_redirect(desired_id=None):
         user_context = get_user_context()
         if not (user_context & user_context.premium):
             return json.dumps({
-                        "code": 401,
-                        "description": "Creating a custom redirect requires a premium account. "
-                                       "If you already have one, put your token in the headers.",
-            })
+                        "error": "Creating a custom redirect requires a premium account. "
+                                 "If you already have one, put your token in the headers.",
+            }), 401
         premium = 1
         url_id = desired_id
         author_id = user_context.id
