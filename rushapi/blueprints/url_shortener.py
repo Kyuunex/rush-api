@@ -14,9 +14,9 @@ from rushapi.reusables.user_validation import get_user_context
 url_shortener = Blueprint("url_shortener", __name__)
 
 
-@url_shortener.route('/make_redirect', methods=['POST'])
-@url_shortener.route('/make_redirect/<desired_id>', methods=['POST', 'PUT'])
-def make_post(desired_id=None):
+@url_shortener.route('/create_redirect', methods=['POST'])
+@url_shortener.route('/create_redirect/<desired_id>', methods=['POST', 'PUT'])
+def create_redirect(desired_id=None):
     """
     This endpoint handles the POST data submitted by the client.
     It will process this information and create a shortened a URL.
