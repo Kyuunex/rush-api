@@ -153,7 +153,7 @@ def destroy_token():
     if not get_user_context():
         return json.dumps({"error": "You need to put the token in the headers!"}), 401
 
-    hashed_token = hashlib.sha256((request.cookies['session_token']).encode()).hexdigest()
+    hashed_token = hashlib.sha256((request.headers['Authorization']).encode()).hexdigest()
 
     db_cursor.execute("DELETE FROM session_tokens WHERE token = ?", [hashed_token])
     db_connection.commit()
