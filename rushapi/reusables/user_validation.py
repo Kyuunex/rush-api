@@ -1,3 +1,4 @@
+import pyotp
 from flask import request
 
 import hashlib
@@ -15,7 +16,7 @@ class CurrentUser:
         self.premium = int(user_context_list[4])
 
 
-def validate_user_credentials(username, password):
+def validate_user_credentials(username, password, otp):
     user_id = tuple(db_cursor.execute("SELECT id FROM users WHERE username = ?", [username]))
     if not user_id:
         return None
@@ -26,9 +27,16 @@ def validate_user_credentials(username, password):
         # This should never happen
         return None
 
+    user_totp_seed = tuple(db_cursor.execute("SELECT seed FROM totp_seeds WHERE user_id = ? AND enabled = 1",
+                                             [user_id[0][0]]))
+    if user_totp_seed:
+        totp = pyotp.TOTP(user_totp_seed[0][0])
+        if not totp.verify(str(otp)):
+            return None
+
     password_salt = password_salt_db[0][0]
 
-    hashed_password = hashlib.sha256((password+password_salt).encode()).hexdigest()
+    hashed_password = hashlib.sha256((password + password_salt).encode()).hexdigest()
 
     db_query = tuple(db_cursor.execute("SELECT user_id FROM user_passwords WHERE user_id = ? AND password_hash = ?",
                                        [user_id[0][0], hashed_password]))

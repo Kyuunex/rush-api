@@ -1,3 +1,4 @@
+import pyotp
 from flask import Blueprint, request, make_response, redirect, json
 
 import hashlib
@@ -47,9 +48,10 @@ def generate_token():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        user_id = validate_user_credentials(username, password)
+        otp = request.form['otp']
+        user_id = validate_user_credentials(username, password, otp)
         if not user_id:
-            return json.dumps({"error": "Username and Password validation failed."}), 401
+            return json.dumps({"error": "Username/Password/TOTP validation failed."}), 401
 
         new_session_token = get_random_string(32)
 
@@ -132,14 +134,17 @@ def generate_account():
         db_connection.commit()
 
         new_session_token = get_random_string(32)
+        totp_seed = pyotp.random_base32()
 
         hashed_token = hashlib.sha256(new_session_token.encode()).hexdigest()
         # todo fix
         db_cursor.execute("INSERT INTO session_tokens VALUES (?, ?, 0, 0, 0, 0)", [int(user_id[0][0]), hashed_token])
+        db_cursor.execute("INSERT INTO totp_seeds VALUES (?, ?, 1)", [int(user_id[0][0]), totp_seed])
         db_connection.commit()
 
         return json.dumps({
             "token": new_session_token,
+            "totp_seed": totp_seed,
         })
 
 
