@@ -29,7 +29,7 @@ def create_redirect(desired_id=None):
 
     if desired_id:
         user_context = get_user_context()
-        if not (user_context & user_context.premium):
+        if not (user_context and user_context.premium):
             return json.dumps({
                         "error": "Creating a custom redirect requires a premium account. "
                                  "If you already have one, put your token in the headers.",
