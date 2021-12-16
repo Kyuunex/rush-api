@@ -29,7 +29,20 @@ def my_urls():
 
     urls = db_cursor.execute("SELECT id, author_id, url, creation_timestamp, premium, visits, delete_after, last_visit "
                              "FROM urls WHERE author_id = ?", [user_context.id])
-    return json.dumps(urls)
+
+    buffer = []
+    for url in urls:
+        buffer.append({
+            "id": url[0],
+            "author_id": url[1],
+            "url": url[2],
+            "creation_timestamp": url[3],
+            "premium": url[4],
+            "visits": url[5],
+            "delete_after": url[6],
+            "last_visit": url[7],
+        })
+    return json.dumps(buffer)
 
 
 @user_management.route('/generate_token', methods=['POST'])
