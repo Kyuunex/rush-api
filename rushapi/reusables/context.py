@@ -49,6 +49,11 @@ db_cursor.execute("""
         )
 """)
 db_cursor.execute("""
+        CREATE TABLE IF NOT EXISTS "domain_blacklist" (
+            "domain"    TEXT NOT NULL
+        )
+""")
+db_cursor.execute("""
         CREATE TABLE IF NOT EXISTS "urls" (
             "id"    TEXT NOT NULL,
             "author_id"    INTEGER,

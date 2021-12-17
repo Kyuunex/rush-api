@@ -25,8 +25,6 @@ def create_redirect(desired_id=None):
     :return: A newly created shortened URL.
     """
 
-    # TODO: add a blacklist
-
     if desired_id:
         user_context = get_user_context()
         if not (user_context and user_context.premium):
@@ -56,6 +54,13 @@ def create_redirect(desired_id=None):
             return json.dumps({
                 "error": "URL is not valid",
             }), 403
+
+        domain_blacklist = tuple(db_cursor.execute("SELECT domain FROM domain_blacklist"))
+        for blacklisted_domain in domain_blacklist:
+            if blacklisted_domain[0] in url:
+                return json.dumps({
+                    "error": "This domain is blacklisted.",
+                }), 403
 
         db_cursor.execute("INSERT INTO urls "
                           "(id, author_id, url, creation_timestamp, premium, visits, delete_after, last_visit) "

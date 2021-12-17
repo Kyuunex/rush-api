@@ -13,6 +13,7 @@ rush-api is a URL shortener, made in Flask.
 5. URL validation
 6. Auto deletion after 30 days of URLs after creation or last visit 
     + **feature not fully implemented!**
+7. Domain blacklist
 
 ### [Installation Instructions](https://github.com/Kyuunex/rush-api/blob/main/installation.md)
 ### [Endpoint Documentation](https://github.com/Kyuunex/rush-api/blob/main/documentation.md)
