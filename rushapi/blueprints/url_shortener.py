@@ -89,3 +89,34 @@ def redirect_url(url_id):
     db_connection.commit()
 
     return make_response(redirect(post_url_lookup[0][0]))
+
+
+@url_shortener.route('/my_urls')
+def my_urls():
+    """
+    :return: This endpoint returns all the URLs the user has created.
+    """
+
+    user_context = get_user_context()
+    if not user_context:
+        return json.dumps({
+            "error": "This endpoint requires an account. "
+                     "If you already have one, put your token in the headers.",
+        }), 401
+
+    urls = db_cursor.execute("SELECT id, author_id, url, creation_timestamp, premium, visits, delete_after, last_visit "
+                             "FROM urls WHERE author_id = ?", [user_context.id])
+
+    buffer = []
+    for url in urls:
+        buffer.append({
+            "id": url[0],
+            "author_id": url[1],
+            "url": url[2],
+            "creation_timestamp": url[3],
+            "premium": url[4],
+            "visits": url[5],
+            "delete_after": url[6],
+            "last_visit": url[7],
+        })
+    return json.dumps(buffer)
