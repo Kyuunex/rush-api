@@ -35,15 +35,22 @@ def create_redirect(desired_id=None):
         premium = 1
         url_id = desired_id
         author_id = user_context.id
-        delete_after = None
     else:
         premium = 0
         url_id = get_random_string(7)
         author_id = None
-        delete_after = int(time.time()) + 2.592e+6
 
     if request.method == 'POST':
         url = request.form['url']
+        delete_after = request.form['delete_after']
+
+        if len(delete_after) > 0:
+            try:
+                delete_after = int(delete_after)
+            except ValueError:
+                delete_after = 0
+        else:
+            delete_after = int(time.time()) + 2.592e+6
 
         if not len(url) < 250:
             return json.dumps({
