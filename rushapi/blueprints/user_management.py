@@ -116,6 +116,7 @@ def generate_account():
         db_connection.commit()
 
         return json.dumps({
+            "user_id": int(user_id[0][0]),
             "totp_seed": totp_seed,
         })
 

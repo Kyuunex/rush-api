@@ -101,6 +101,7 @@ curl http://127.0.0.1:8080/generate_account -X POST -d "username=root&password=1
 ```
 ```json
 {
+  "user_id": 1,
   "totp_seed": "5F62QCOJR3FPQHQXTXLJRTYUGX3QAZCM"
 }
 ```
