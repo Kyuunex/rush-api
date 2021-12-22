@@ -110,17 +110,12 @@ def generate_account():
                           [int(user_id[0][0]), str(hashed_password), password_salt])
         db_connection.commit()
 
-        new_session_token = get_random_string(32)
         totp_seed = pyotp.random_base32()
 
-        hashed_token = hashlib.sha256(new_session_token.encode()).hexdigest()
-        # todo fix
-        db_cursor.execute("INSERT INTO session_tokens VALUES (?, ?, 0, 0, 0, 0)", [int(user_id[0][0]), hashed_token])
         db_cursor.execute("INSERT INTO totp_seeds VALUES (?, ?, 1)", [int(user_id[0][0]), totp_seed])
         db_connection.commit()
 
         return json.dumps({
-            "token": new_session_token,
             "totp_seed": totp_seed,
         })
 

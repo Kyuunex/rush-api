@@ -92,7 +92,7 @@ curl http://127.0.0.1:8080/generate_token -X POST -d "username=root&password=111
 ###### Supply `username`: Username
 ###### Supply `password`: Password
 ###### Supply `email`: Email to associate with the account
-#### returns: json with a newly generated token and a TOTP seed to use for future code generation.
+#### returns: json with a TOTP seed to use for code generation.
 
 ###### Example:
 ```bash
@@ -100,7 +100,6 @@ curl http://127.0.0.1:8080/generate_account -X POST -d "username=root&password=1
 ```
 ```json
 {
-  "token": "tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe", 
   "totp_seed": "5F62QCOJR3FPQHQXTXLJRTYUGX3QAZCM"
 }
 ```
