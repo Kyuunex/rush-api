@@ -88,11 +88,11 @@ curl http://127.0.0.1:8080/generate_token -X POST -d "username=root&password=111
 ---
 
 ### `/generate_account`
+##### Unless you set `allow_registration` in config, you need to supply a token of an administrator/billing account to use this endpoint. This is not required to generate the first account in the database.
 #### Method: `POST` 
 ###### Supply `username`: Username
 ###### Supply `password`: Password
 ###### Supply `email`: Email to associate with the account
-###### Note: Unless you set `allow_registration` in config, you need to supply a token of an administrator to use this endpoint.
 #### returns: json with a TOTP seed to use for code generation.
 
 ###### Example:
@@ -125,6 +125,7 @@ curl http://127.0.0.1:8080/destroy_token --header "Authorization: tF9y4lcvaY80Fk
 ---
 
 ### `/update_account_premium`
+##### Administrator/Billing system use only
 #### Method: `POST` 
 ###### Supply `user_id`: Account ID
 ###### Supply `premium`: 1 or 0
