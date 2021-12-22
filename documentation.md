@@ -133,7 +133,7 @@ curl http://127.0.0.1:8080/destroy_token --header "Authorization: tF9y4lcvaY80Fk
 
 ###### Example:
 ```bash
-curl http://127.0.0.1:8080/update_account_premium --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
+curl http://127.0.0.1:8080/update_account_premium -X POST -d "user_id=5&premium=1" --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
 ```
 ```json
 {
