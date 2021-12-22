@@ -7,7 +7,7 @@ from flask import Flask, json
 
 from rushapi.reusables.context import db_connection
 from rushapi.reusables.context import website_context
-from rushapi.reusables.user_validation import get_user_context
+from rushapi.reusables.user_validation import is_administrator
 
 from rushapi.blueprints.url_shortener import url_shortener
 from rushapi.blueprints.user_management import user_management
@@ -26,10 +26,8 @@ def server_shutdown():
     :return: Success or Error message depending on the circumstances.
     """
 
-    user_context = get_user_context()
+    user_context = is_administrator()
     if not user_context:
-        return json.dumps({"error": "Unauthorized"}), 401
-    if not user_context.permissions >= 10:
         return json.dumps({"error": "Unauthorized"}), 401
 
     db_connection.commit()

@@ -75,3 +75,12 @@ def get_user_context():
             if user_context_list:
                 return CurrentUser(user_context_list[0])
     return None
+
+
+def is_administrator():
+    user_context = get_user_context()
+    if not user_context:
+        return None
+    if not user_context.permissions >= 10:
+        return None
+    return user_context
