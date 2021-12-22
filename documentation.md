@@ -92,6 +92,7 @@ curl http://127.0.0.1:8080/generate_token -X POST -d "username=root&password=111
 ###### Supply `username`: Username
 ###### Supply `password`: Password
 ###### Supply `email`: Email to associate with the account
+###### Note: Unless you set `allow_registration` in config, you need to supply a token of an administrator to use this endpoint.
 #### returns: json with a TOTP seed to use for code generation.
 
 ###### Example:
