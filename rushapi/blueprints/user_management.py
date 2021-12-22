@@ -9,6 +9,7 @@ from rushapi.reusables.rng import get_random_string
 from rushapi.reusables.context import db_cursor
 from rushapi.reusables.context import db_connection
 from rushapi.reusables.user_validation import get_user_context
+from rushapi.reusables.user_validation import is_administrator
 from rushapi.reusables.user_validation import validate_user_credentials
 
 user_management = Blueprint("user_management", __name__)
@@ -73,14 +74,8 @@ def generate_account():
     )
 
     if not is_registration_enabled:
-        if is_anyone_registered:
+        if is_anyone_registered and not is_administrator():
             return make_response(redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ"))
-
-    if get_user_context():
-        return json.dumps({
-            "error": "If you are creating a new account, don't put your current account token in the headers. "
-                     "This makes no sense. Creating multiple accounts may be prohibited, check in with the webmaster!",
-        }), 401
 
     if request.method == 'POST':
         email = request.form['email']
