@@ -121,3 +121,21 @@ curl http://127.0.0.1:8080/destroy_token --header "Authorization: tF9y4lcvaY80Fk
   "success": "This token has been destroyed!"
 }
 ```
+
+---
+
+### `/update_account_premium`
+#### Method: `POST` 
+###### Supply `user_id`: Account ID
+###### Supply `premium`: 1 or 0
+#### returns: A success message
+
+###### Example:
+```bash
+curl http://127.0.0.1:8080/update_account_premium --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
+```
+```json
+{
+  "success": "Account updated"
+}
+```

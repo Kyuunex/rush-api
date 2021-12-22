@@ -139,6 +139,30 @@ def destroy_token():
     return json.dumps({"success": "This token has been destroyed!"}), 200
 
 
+@user_management.route('/update_account_premium', methods=['POST'])
+def update_account_premium():
+    """
+    This endpoint is used by an administrator to update the premium status of an account.
+    :return: A success message.
+    """
+
+    if not is_administrator():
+        return json.dumps({
+            "error": "This endpoint is meant for use by an administrator only.",
+        }), 401
+
+    if request.method == 'POST':
+        user_id = request.form['user_id']
+        premium = request.form['premium']
+
+        db_cursor.execute("UPDATE users SET premium = ? WHERE id = ?", [int(premium), int(user_id)])
+        db_connection.commit()
+
+        return json.dumps({
+            "success": "Account updated",
+        })
+
+
 @user_management.route('/token_listing')
 def token_listing():
     """
