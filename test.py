@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 
-DB_FILE = os.path.expanduser("~") + "Documents/rush.sqlite3"
+DB_FILE = os.path.expanduser("~") + "/Documents/rush.sqlite3"
 os.environ["RUSH_SQLITE_FILE"] = DB_FILE
 print("Database file is saved at: ", DB_FILE)
 
