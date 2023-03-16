@@ -8,18 +8,15 @@ To generate an account, use the `/generate_account` endpoint.
 
 ## Endpoints
 
-### `/u/<url_id>`
-#### Method: `GET`
+### `GET`: `/u/<url_id>`
 ###### Supply `url_id`: URL's unique identifier
 #### returns: A redirect to that URL
 
 ---
 
-### `/create_redirect/<desired_id>`
-#### Method: `POST` 
+### `POST`/`PUT`: `/create_redirect/<desired_id>`
 ###### Supply `url`: URL to redirect to
 ###### Supply `delete_after`: Positive value = POSIX timestamp when to delete the redirect. `0` value = Never. Negative value = How long after the last visit to delete the redirect.
-#### (Optional) Method: `PUT`
 ###### (Optional) Supply `desired_id`: Desired shortened URL
 #### returns: json with the shortened URL
 
@@ -45,8 +42,7 @@ curl http://127.0.0.1:8080/create_redirect/custom -X POST -d "url=https://youtu.
 
 ---
 
-### `/my_urls`
-#### Method: `GET` 
+### `GET`: `/my_urls`
 #### returns: json with all the URLs the user has created.
 
 ###### Example:
@@ -70,8 +66,7 @@ curl http://127.0.0.1:8080/my_urls --header "Authorization: tF9y4lcvaY80FkqxIsL1
 
 ---
 
-### `/generate_token`
-#### Method: `POST` 
+### `POST`: `/generate_token`
 ###### Supply `username`: Username
 ###### Supply `password`: Password
 ###### Supply `otp`: Generated TOTP 6-digit code
@@ -88,9 +83,8 @@ curl http://127.0.0.1:8080/generate_token -X POST -d "username=root&password=111
 
 ---
 
-### `/generate_account`
+### `POST`: `/generate_account`
 ##### Unless you set `allow_registration` in config, you need to supply a token of an administrator/billing account to use this endpoint. This is not required to generate the first account in the database.
-#### Method: `POST` 
 ###### Supply `username`: Username
 ###### Supply `password`: Password
 ###### Supply `email`: Email to associate with the account
@@ -109,8 +103,7 @@ curl http://127.0.0.1:8080/generate_account -X POST -d "username=root&password=1
 
 ---
 
-### `/destroy_token`
-#### Method: `GET` 
+### `GET`: `/destroy_token`
 #### returns: json with a success message
 
 ###### Example:
@@ -125,9 +118,8 @@ curl http://127.0.0.1:8080/destroy_token --header "Authorization: tF9y4lcvaY80Fk
 
 ---
 
-### `/update_account_premium`
+### `POST`:`/update_account_premium`
 ##### Administrator/Billing system use only
-#### Method: `POST` 
 ###### Supply `user_id`: Account ID
 ###### Supply `premium`: 1 or 0
 #### returns: A success message
