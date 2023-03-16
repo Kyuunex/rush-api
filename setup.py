@@ -7,7 +7,7 @@ setup(
         'rushapi.blueprints',
         'rushapi.reusables',
     ],
-    version="0.1",
+    version="0.2",
     description='REST URL Shortener API',
     author='Kyuunex',
     author_email='kyuunex@protonmail.ch',
