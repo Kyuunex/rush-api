@@ -8,19 +8,20 @@ To generate an account, use the `/generate_account` endpoint.
 
 ## Endpoints
 
-### `GET`: `/u/<url_id>`
-###### Supply `url_id`: URL's unique identifier
-#### returns: A redirect to that URL
+### Redirect a URL
+#### `GET` `/u/<url_id>`
+##### `url_id`: URL's unique identifier
+##### returns: A redirect to that URL
 
 ---
 
-### `POST`/`PUT`: `/create_redirect/<desired_id>`
-###### Supply `url`: URL to redirect to
-###### Supply `delete_after`: Positive value = POSIX timestamp when to delete the redirect. `0` value = Never. Negative value = How long after the last visit to delete the redirect.
-###### (Optional) Supply `desired_id`: Desired shortened URL
-#### returns: json with the shortened URL
+### Create a shortened URL
+#### `POST`/`PUT` `/create_redirect/<desired_id>`
+##### `url`: URL to redirect to
+##### `delete_after`: Positive value = POSIX timestamp when to delete the redirect. `0` value = Never. Negative value = How long after the last visit to delete the redirect.
+##### `desired_id`: Desired shortened URL (Optional) 
+##### returns: json with the shortened URL
 
-###### Example:
 ```bash
 curl http://127.0.0.1:8080/create_redirect -X POST -d "url=https://youtu.be/FTQbiNvZqaY"
 ```
@@ -30,7 +31,6 @@ curl http://127.0.0.1:8080/create_redirect -X POST -d "url=https://youtu.be/FTQb
 }
 ```
 
-###### Example 2:
 ```bash
 curl http://127.0.0.1:8080/create_redirect/custom -X POST -d "url=https://youtu.be/FTQbiNvZqaY" --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
 ```
@@ -42,10 +42,10 @@ curl http://127.0.0.1:8080/create_redirect/custom -X POST -d "url=https://youtu.
 
 ---
 
-### `GET`: `/my_urls`
-#### returns: json with all the URLs the user has created.
+### Get a list of your previously created URLs
+#### `GET` `/my_urls`
+##### returns: json with all the URLs the user has created.
 
-###### Example:
 ```bash
 curl http://127.0.0.1:8080/my_urls --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
 ```
@@ -66,12 +66,13 @@ curl http://127.0.0.1:8080/my_urls --header "Authorization: tF9y4lcvaY80FkqxIsL1
 
 ---
 
-### `POST`: `/generate_token`
-###### Supply `username`: Username
-###### Supply `password`: Password
-###### Supply `otp`: Generated TOTP 6-digit code
-#### returns: json with a newly generated token.
-Example:
+### Generate an authorization token
+#### `POST` `/generate_token`
+##### `username`: Username
+##### `password`: Password
+##### `otp`: Generated TOTP 6-digit code
+##### returns: json with a newly generated token.
+
 ```bash
 curl http://127.0.0.1:8080/generate_token -X POST -d "username=root&password=1111&otp=350076"
 ```
@@ -83,14 +84,15 @@ curl http://127.0.0.1:8080/generate_token -X POST -d "username=root&password=111
 
 ---
 
-### `POST`: `/generate_account`
-##### Unless you set `allow_registration` in config, you need to supply a token of an administrator/billing account to use this endpoint. This is not required to generate the first account in the database.
-###### Supply `username`: Username
-###### Supply `password`: Password
-###### Supply `email`: Email to associate with the account
-#### returns: json with a TOTP seed to use for code generation.
+### Create an account
+#### `POST` `/generate_account`
+Unless you set `allow_registration` in config, you need to supply a token of an administrator/billing account to use this endpoint. 
+This is not required to generate the first account in the database.
+##### `username`: Username
+##### `password`: Password
+##### `email`: Email to associate with the account
+##### returns: json with a TOTP seed to use for code generation.
 
-###### Example:
 ```bash
 curl http://127.0.0.1:8080/generate_account -X POST -d "username=root&password=1111&email=test"
 ```
@@ -103,10 +105,10 @@ curl http://127.0.0.1:8080/generate_account -X POST -d "username=root&password=1
 
 ---
 
-### `GET`: `/destroy_token`
-#### returns: json with a success message
+### Force expire an authorization token
+#### `GET` `/destroy_token`
+##### returns: json with a success message
 
-###### Example:
 ```bash
 curl http://127.0.0.1:8080/destroy_token --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
 ```
@@ -118,13 +120,13 @@ curl http://127.0.0.1:8080/destroy_token --header "Authorization: tF9y4lcvaY80Fk
 
 ---
 
-### `POST`:`/update_account_premium`
-##### Administrator/Billing system use only
-###### Supply `user_id`: Account ID
-###### Supply `premium`: 1 or 0
-#### returns: A success message
+### Update account premium status
+#### `POST``/update_account_premium`
+Administrator/Billing system use only
+##### `user_id`: Account ID
+##### `premium`: 1 or 0
+##### returns: A success message
 
-###### Example:
 ```bash
 curl http://127.0.0.1:8080/update_account_premium -X POST -d "user_id=5&premium=1" --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
 ```
