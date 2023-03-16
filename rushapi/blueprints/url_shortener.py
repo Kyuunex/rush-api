@@ -76,8 +76,13 @@ def create_redirect(desired_id=None):
                           [url_id, author_id, url, int(time.time()), premium, 0, delete_after, int(time.time())])
         db_connection.commit()
 
+        if request.is_secure:
+            protocol = "https"
+        else:
+            protocol = "http"
+
         return json.dumps({
-            "shortened_url": f"https://{request.host}/u/{url_id}"
+            "shortened_url": f"{protocol}://{request.host}/u/{url_id}"
         }), 200
 
 
