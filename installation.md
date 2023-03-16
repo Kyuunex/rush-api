@@ -42,7 +42,7 @@ import sys
 import logging
 
 logging.basicConfig(stream=sys.stderr)
-os.environ["MINBL_SQLITE_FILE"] = "/var/www/rush-api-db/rush.sqlite3"
+os.environ["RUSH_SQLITE_FILE"] = "/var/www/rush-api-db/rush.sqlite3"
 # sys.path.insert(0,"/var/www/rush-api/")
 
 from rushapi import app as application
