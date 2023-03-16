@@ -18,12 +18,10 @@ rush-api is a URL shortener, made in Flask.
 ### A quick example:
 ###### Create a redirect url:
 ```bash
-curl http://127.0.0.1:8080/create_redirect -X POST -d "url=https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+curl http://127.0.0.1:8080/create_redirect -X POST -d "url=https://youtu.be/FTQbiNvZqaY"
 ```
 ```json
-{
-  "shortened_url": "https://127.0.0.1:8080/u/EnqYNGo"
-}
+{"shortened_url": "http://127.0.0.1:8080/u/8IgjK1T"}
 ```
 ###### List your created redirect urls:
 ```bash
@@ -35,10 +33,10 @@ curl http://127.0.0.1:8080/my_urls --header "Authorization: tF9y4lcvaY80FkqxIsL1
     "author_id": 1, 
     "creation_timestamp": 1639675025, 
     "delete_after": null, 
-    "id": "custom", 
+    "id": "your-custom-id", 
     "last_visit": 1639675025, 
     "premium": 1, 
-    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 
+    "url": "https://youtu.be/FTQbiNvZqaY", 
     "visits": 0
   }
 ]
