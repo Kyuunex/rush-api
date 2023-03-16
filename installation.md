@@ -1,20 +1,26 @@
-# Installation
-After making sure you have `git` and Python 3.6+ installed,  
-type the following in the command line to install the main branch of software as a pip package  
+Important, You need `git` and Python 3.6+ installed.
+
+# Running for testing or debugging purposes
+```bash
+git clone https://github.com/Kyuunex/rush-api.git -b main
+cd rush-api
+pip install -r requirements.txt
+./test.py
+```
+
+# Installation for production use
+Type the following in the command line to install the main branch of this software as a pip package  
+
 ```bash
 python3 -m pip install git+https://github.com/Kyuunex/rush-api.git@main
 ```  
+
 To install a specific version, replace `main` at the end with the version you want to install from releases.  
 Additionally, every release has a command in its description for easy installation of that specific version.  
-But it's always recommended using the latest available version for security reasons.  
-To update from an older version, simply append `--upgrade` to the your command.
+But for security reasons, using the latest version is always recommended.  
+To update from an older version, simply append `--upgrade` to this command.
 
-# Running
-To run, first export `RUSH_SQLITE_FILE` environment variable with the path to the sqlite3 database for it.
-If the sqlite3 database file does not exist at that given path, it will be automatically created.  
-After that, you have 2 choices. 
-1. To run for testing or debugging purposes, run `test.py`, or copy and paste its contents into the python shell.
-2. To run in production as an Apache site, make an Apache conf that looks something like this:
+### Example Apache 2 configuration
 ```bash
 <IfModule mod_ssl.c>
     <VirtualHost *:443>
@@ -33,7 +39,7 @@ After that, you have 2 choices.
     </VirtualHost>
 </IfModule>
 ```
-After that, make a wsgi file that looks something like this:
+### Example wsgi file:
 ```python
 #!/usr/bin/env python3
 
@@ -43,6 +49,8 @@ import logging
 
 logging.basicConfig(stream=sys.stderr)
 os.environ["RUSH_SQLITE_FILE"] = "/var/www/rush-api-db/rush.sqlite3"
+# the path above has to be writable
+
 # sys.path.insert(0,"/var/www/rush-api/")
 
 from rushapi import app as application

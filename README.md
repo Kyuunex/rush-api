@@ -8,7 +8,7 @@ rush-api is a URL shortener, made in Flask.
     + In the future, I will add option to enable the requirement for each time the API request is sent.
 3. Custom URL generation for premium accounts 
     + Must be set manually for each account in the database.
-    + Normally you would use your external billing system to call `/update_account_premium` endpoint to do so.
+    + Your external billing system should call `/update_account_premium` endpoint to do so.
 4. Visitor number tracking
 5. URL validation
 6. Auto deletion after 30 days of URLs after creation or last visit 
