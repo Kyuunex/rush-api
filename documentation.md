@@ -10,17 +10,17 @@ To generate an account, use the `/generate_account` endpoint.
 
 ### Redirect a URL
 #### `GET` `/u/<url_id>`
-##### `url_id`: URL's unique identifier
-##### returns: A redirect to that URL
+- `url_id`: URL's unique identifier
+- returns: A redirect to that URL
 
 ---
 
 ### Create a shortened URL
 #### `POST`/`PUT` `/create_redirect/<desired_id>`
-##### `url`: URL to redirect to
-##### `delete_after`: Positive value = POSIX timestamp when to delete the redirect. `0` value = Never. Negative value = How long after the last visit to delete the redirect.
-##### `desired_id`: Desired shortened URL (Optional) 
-##### returns: json with the shortened URL
+- `url`: URL to redirect to
+- `delete_after`: Positive value = POSIX timestamp when to delete the redirect. `0` value = Never. Negative value = How long after the last visit to delete the redirect.
+- `desired_id`: Desired shortened URL (Optional) 
+- returns: json with the shortened URL
 
 ```bash
 curl http://127.0.0.1:8080/create_redirect -X POST -d "url=https://youtu.be/FTQbiNvZqaY"
@@ -44,7 +44,7 @@ curl http://127.0.0.1:8080/create_redirect/custom -X POST -d "url=https://youtu.
 
 ### Get a list of your previously created URLs
 #### `GET` `/my_urls`
-##### returns: json with all the URLs the user has created.
+- returns: json with all the URLs the user has created.
 
 ```bash
 curl http://127.0.0.1:8080/my_urls --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
@@ -68,10 +68,10 @@ curl http://127.0.0.1:8080/my_urls --header "Authorization: tF9y4lcvaY80FkqxIsL1
 
 ### Generate an authorization token
 #### `POST` `/generate_token`
-##### `username`: Username
-##### `password`: Password
-##### `otp`: Generated TOTP 6-digit code
-##### returns: json with a newly generated token.
+- `username`: Username
+- `password`: Password
+- `otp`: Generated TOTP 6-digit code
+- returns: json with a newly generated token.
 
 ```bash
 curl http://127.0.0.1:8080/generate_token -X POST -d "username=root&password=1111&otp=350076"
@@ -88,10 +88,10 @@ curl http://127.0.0.1:8080/generate_token -X POST -d "username=root&password=111
 #### `POST` `/generate_account`
 Unless you set `allow_registration` in config, you need to supply a token of an administrator/billing account to use this endpoint. 
 This is not required to generate the first account in the database.
-##### `username`: Username
-##### `password`: Password
-##### `email`: Email to associate with the account
-##### returns: json with a TOTP seed to use for code generation.
+- `username`: Username
+- `password`: Password
+- `email`: Email to associate with the account
+- returns: json with a TOTP seed to use for code generation.
 
 ```bash
 curl http://127.0.0.1:8080/generate_account -X POST -d "username=root&password=1111&email=test"
@@ -107,7 +107,7 @@ curl http://127.0.0.1:8080/generate_account -X POST -d "username=root&password=1
 
 ### Force expire an authorization token
 #### `GET` `/destroy_token`
-##### returns: json with a success message
+- returns: json with a success message
 
 ```bash
 curl http://127.0.0.1:8080/destroy_token --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
@@ -121,11 +121,11 @@ curl http://127.0.0.1:8080/destroy_token --header "Authorization: tF9y4lcvaY80Fk
 ---
 
 ### Update account premium status
-#### `POST``/update_account_premium`
+#### `POST` `/update_account_premium`
 Administrator/Billing system use only
-##### `user_id`: Account ID
-##### `premium`: 1 or 0
-##### returns: A success message
+- `user_id`: Account ID
+- `premium`: 1 or 0
+- returns: A success message
 
 ```bash
 curl http://127.0.0.1:8080/update_account_premium -X POST -d "user_id=5&premium=1" --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
