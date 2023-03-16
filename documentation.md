@@ -18,8 +18,11 @@ To generate an account, use the `/generate_account` endpoint.
 ### Create a shortened URL
 #### `POST`/`PUT` `/create_redirect/<desired_id>`
 - `url`: URL to redirect to
-- `delete_after`: Positive value = POSIX timestamp when to delete the redirect. `0` value = Never. Negative value = How long after the last visit to delete the redirect.
-- `desired_id`: Desired shortened URL (Optional) 
+- `delete_after`: Configure automatic deletion (Optional) 
+  - Positive value = POSIX timestamp when to delete the redirect. 
+  - `0` value = Never. 
+  - Negative value = How many seconds after the last visit to delete the redirect.
+- `desired_id`: Desired shortened URL
 - returns: json with the shortened URL
 
 ```bash
