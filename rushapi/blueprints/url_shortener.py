@@ -42,13 +42,14 @@ def create_redirect(desired_id=None):
 
     if request.method == 'POST':
         url = request.form['url']
-        delete_after = request.form['delete_after']
+        delete_after = request.args.get('delete_after')
 
-        if len(delete_after) > 0:
-            try:
-                delete_after = int(delete_after)
-            except ValueError:
-                delete_after = 0
+        if delete_after:
+            if len(delete_after) > 0:
+                try:
+                    delete_after = int(delete_after)
+                except ValueError:
+                    delete_after = 0
         else:
             delete_after = int(time.time()) + 2.592e+6
 
