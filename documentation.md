@@ -25,17 +25,17 @@ To generate an account, use the `/generate_account` endpoint.
 
 ###### Example:
 ```bash
-curl http://127.0.0.1:8080/create_redirect -X POST -d "url=https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+curl http://127.0.0.1:8080/create_redirect -X POST -d "url=https://youtu.be/FTQbiNvZqaY"
 ```
 ```json
 {
-  "shortened_url": "https://127.0.0.1:8080/u/EnqYNGo"
+  "shortened_url": "https://127.0.0.1:8080/u/8IgjK1T"
 }
 ```
 
 ###### Example 2:
 ```bash
-curl http://127.0.0.1:8080/create_redirect/custom -X POST -d "url=https://www.youtube.com/watch?v=dQw4w9WgXcQ" --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
+curl http://127.0.0.1:8080/create_redirect/custom -X POST -d "url=https://youtu.be/FTQbiNvZqaY" --header "Authorization: tF9y4lcvaY80FkqxIsL1fE7cnCslfeVe"
 ```
 ```json
 {
@@ -62,7 +62,7 @@ curl http://127.0.0.1:8080/my_urls --header "Authorization: tF9y4lcvaY80FkqxIsL1
     "id": "custom", 
     "last_visit": 1639675025, 
     "premium": 1, 
-    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", 
+    "url": "https://youtu.be/FTQbiNvZqaY", 
     "visits": 0
   }
 ]
