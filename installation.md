@@ -16,30 +16,33 @@ After that, you have 2 choices.
 1. To run for testing or debugging purposes, run `test.py`, or copy and paste its contents into the python shell.
 2. To run in production as an Apache site, make an Apache conf that looks something like this:
 ```bash
-<VirtualHost *:443>
-ServerAdmin webmaster@your-domain.com
-ServerName rush.your-domain.com
-
-SSLEngine on
-SSLCertificateFile /ssl/cloudflare/your-domain.com.pem
-SSLCertificateKeyFile /ssl/cloudflare/your-domain.com.key
-
-WSGIScriptAlias / /var/www/rush-api/rushapiloader.wsgi
-
-LogLevel warn
-ErrorLog ${APACHE_LOG_DIR}/error.log
-CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-
+<IfModule mod_ssl.c>
+    <VirtualHost *:443>
+        ServerAdmin webmaster@your-domain.com
+        ServerName rush.your-domain.com
+        
+        SSLEngine on
+        SSLCertificateFile /root/ssl/cloudflare/your-domain.com.pem
+        SSLCertificateKeyFile /root/ssl/cloudflare/your-domain.com.key
+        
+        WSGIScriptAlias / /var/www/rush-api/rushapiloader.wsgi
+        
+        LogLevel warn
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
+</IfModule>
 ```
 After that, make a wsgi file that looks something like this:
 ```python
 #!/usr/bin/env python3
 
+import os
 import sys
 import logging
 
 logging.basicConfig(stream=sys.stderr)
+os.environ["MINBL_SQLITE_FILE"] = "/var/www/rush-api-db/rush.sqlite3"
 # sys.path.insert(0,"/var/www/rush-api/")
 
 from rushapi import app as application

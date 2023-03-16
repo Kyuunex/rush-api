@@ -12,8 +12,19 @@ rush-api is a URL shortener, made in Flask.
 4. Visitor number tracking
 5. URL validation
 6. Auto deletion after 30 days of URLs after creation or last visit 
-    + **feature not fully implemented!**
+    + **Async task to sift through last visits is not implemented yet!**
 7. Domain blacklist
+
+###### A quick example:
+```bash
+curl http://127.0.0.1:8080/create_redirect -X POST -d "url=https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+```
+```json
+{
+  "shortened_url": "https://127.0.0.1:8080/u/EnqYNGo"
+}
+```
+
 
 ### [Installation Instructions](https://github.com/Kyuunex/rush-api/blob/main/installation.md)
 ### [Endpoint Documentation](https://github.com/Kyuunex/rush-api/blob/main/documentation.md)
